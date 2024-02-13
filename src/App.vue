@@ -1,10 +1,10 @@
 <template>
     <Header/>
     <div class="container">
-        <Balance/>
+      <Header/>
+        <Balance :total="total"/>
         <ExpenseIncome/>
-        <AddTransaction/>
-        <Balance/>
+        <AddTransaction :transactions="transactions"/>
       </div>
 </template>
 <script setup>
@@ -12,13 +12,17 @@ import Balance from "./components/Balance.vue";
 import Header from "./components/Header.vue";
 import AddTransaction from "./components/AddTransaction.vue";
 import ExpenseIncome from "./components/ExpenseIncome.vue";
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 
 const    transactions= ref([
                 {id:1, text:'beans',amount:123},
                 {id:2, text:'biscuits',amount:-1234}
             ]  ) 
-
+const total = computed(()=>{
+  return transactions.value.reduce((acc,transactions)=>{
+    return acc+transactions.amount;
+  })
+})
 </script>
 
 <!-- <script setup>
